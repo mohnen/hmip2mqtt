@@ -11,6 +11,7 @@ hmip2mqtt = "hmip2mqtt.cli:main"
 python = "^3.8"
 typer = "^0.3.2"
 appdirs = "^1.4.4"
+homematicip = "^0.13.1"
 
 [tool.poetry.dev-dependencies]
 
