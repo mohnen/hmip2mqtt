@@ -1,6 +1,8 @@
 import json
 # from pathlib import Path
 
+from getmac import get_mac_address
+
 import homematicip
 from homematicip.home import Home
 from paho.mqtt import client as mqtt_client
@@ -25,7 +27,7 @@ def run():
 
         broker = 'house.mohnen.net'
         port = 1883
-        client_id = 'homematicip'
+        client_id = f'homematicip_{"".join(get_mac_address().split(":"))}'
 
         def on_connect(client, userdata, flags, rc):
             if rc == 0:
@@ -35,7 +37,7 @@ def run():
                 raise typer.Exit(code=1)
         client = mqtt_client.Client(client_id)
         # client.username_pw_set(username, password)
-        
+
         client.on_connect = on_connect
         try:
             client.connect(broker, port)

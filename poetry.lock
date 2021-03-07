@@ -80,6 +80,14 @@ optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
+name = "getmac"
+version = "0.8.2"
+description = "Get MAC addresses of remote hosts and local interfaces"
+category = "main"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
+
+[[package]]
 name = "homematicip"
 version = "0.13.1.post0.dev8"
 description = "An API for the homematicip cloud"
@@ -220,7 +228,7 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "8942e349c08886d68e130d944e90b72ae87e8c0ee9186734e167261c8afaf74f"
+content-hash = "4d848871b347db68f9e8c4078f702a3cf49085716246026e8f77783d2226fac6"
 
 [metadata.files]
 aenum = [
@@ -290,6 +298,10 @@ chardet = [
 click = [
     {file = "click-7.1.2-py2.py3-none-any.whl", hash = "sha256:dacca89f4bfadd5de3d7489b7c8a566eee0d3676333fbb50030263894c38c0dc"},
     {file = "click-7.1.2.tar.gz", hash = "sha256:d2b5255c7c6349bc1bd1e59e08cd12acbbd63ce649f2588755783aa94dfb6b1a"},
+]
+getmac = [
+    {file = "getmac-0.8.2-py2.py3-none-any.whl", hash = "sha256:2e4aef2dd6c3befccd7cf9e18badddd24ab1992b928e2e811d415ed47137c547"},
+    {file = "getmac-0.8.2.tar.gz", hash = "sha256:d501d20b71856248cfa07a8758192e86a01077910afb8b659a89946c4d52d368"},
 ]
 homematicip = [
     {file = "homematicip-0.13.1.post0.dev8-py3-none-any.whl", hash = "sha256:2116be8f70bfe8d31e162543210019a24cbf9ab660eabb81a34aee7c81acd237"},
