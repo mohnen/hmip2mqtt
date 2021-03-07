@@ -13,6 +13,7 @@ typer = "^0.3.2"
 appdirs = "^1.4.4"
 homematicip = "^0.13.1"
 paho-mqtt = "^1.5.1"
+getmac = "^0.8.2"
 
 [tool.poetry.dev-dependencies]
 
