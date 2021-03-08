@@ -1,5 +1,7 @@
 import os
 import json
+import time
+
 from pathlib import Path
 
 from getmac import get_mac_address
@@ -20,6 +22,11 @@ os.chdir(config_path)
 
 @app.command("run")
 def run(broker: str):
+    port = 1883
+    client_id = f'homematicip_{"".join(get_mac_address().split(":")).upper()}'
+    teleperiod = 60
+    prefix = 'hmip_'
+
     if not config_file_path.exists():
         typer.echo("No configuration found", err=True)
         os.system('hmip_generate_auth_token.py')
@@ -34,9 +41,6 @@ def run(broker: str):
     home = Home()
     home.set_auth_token(config.auth_token)
     home.init(config.access_point)
-
-    port = 1883
-    client_id = f'homematicip_{"".join(get_mac_address().split(":")).upper()}'
 
     def on_connect(client, userdata, flags, rc):
         if rc == 0:
@@ -56,11 +60,20 @@ def run(broker: str):
 
     client.loop_start()
 
-    home.get_current_state()
-    for group in home.groups:
-        if group.groupType=="META":
-            for device in group.devices:
-                typer.echo(json.dumps(device._rawJSONData))
+    while True:
+        try:
+            home.get_current_state()
+            for group in home.groups:
+                if group.groupType=="META":
+                    for device in group.devices:
+                        label = '_'.join(device.label.split()).encode("ascii", "ignore").decode()
+                        topic1 = f"tele/{prefix}{label}/STATE"
+                        typer.echo(topic1)
+                        # typer.echo(json.dumps(device._rawJSONData))
+            time.sleep(teleperiod)
+        except KeyboardInterrupt:
+            typer.echo('Stopping')
+            break
 
 def main():
   app()
