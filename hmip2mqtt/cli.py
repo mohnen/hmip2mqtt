@@ -48,9 +48,9 @@ def run(broker: str):
         else:
             typer.echo(f"Failed to connect, return code {rc}", err=True)
             raise typer.Exit(code=1)
+
     client = mqtt_client.Client(client_id)
     # client.username_pw_set(username, password)
-
     client.on_connect = on_connect
     try:
         client.connect(broker, port)
@@ -67,9 +67,9 @@ def run(broker: str):
                 if group.groupType=="META":
                     for device in group.devices:
                         label = '_'.join(device.label.split()).encode("ascii", "ignore").decode()
-                        topic1 = f"tele/{prefix}{label}/STATE"
-                        typer.echo(topic1)
-                        # typer.echo(json.dumps(device._rawJSONData))
+                        topic = f"tele/{prefix}{label}/STATE"
+                        typer.echo(f"publishing {topic}")
+                        client.publish(topic, json.dumps(device._rawJSONData))
             time.sleep(teleperiod)
         except KeyboardInterrupt:
             typer.echo('Stopping')
