@@ -66,10 +66,14 @@ def run(broker: str):
             for group in home.groups:
                 if group.groupType=="META":
                     for device in group.devices:
+                        payload = json.dumps(device._rawJSONData)
                         label = '_'.join(device.label.split()).encode("ascii", "ignore").decode()
                         topic = f"tele/{prefix}{label}/STATE"
                         typer.echo(f"publishing {topic}")
-                        client.publish(topic, json.dumps(device._rawJSONData))
+                        client.publish(topic, payload)
+                        topic = f"tele/{prefix}{device.id}/STATE"
+                        typer.echo(f"publishing {topic}")
+                        client.publish(topic, payload)
             time.sleep(teleperiod)
         except KeyboardInterrupt:
             typer.echo('Stopping')
