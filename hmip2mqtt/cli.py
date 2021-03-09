@@ -21,11 +21,18 @@ config_path.mkdir(parents=True, exist_ok=True)
 os.chdir(config_path)
 
 @app.command("run")
-def run(broker: str):
-    port = 1883
-    client_id = f'homematicip_{"".join(get_mac_address().split(":")).upper()}'
-    teleperiod = 60
-    prefix = 'hmip_'
+def run(broker: str,
+        teleperiod : int = typer.Option(60, help="Update interval in seconds"),
+        prefix : str = typer.Option('hmip_', help="prefix for MQTT messages"),
+        port: int = typer.Option(1883, help="Port for the MQTT host"),
+        client_id : str = typer.Option(f'homematicip_{"".join(get_mac_address().split(":")).upper()}', help="Client ID for the MQTT host"),
+        ):
+    """Connects a Homematic IP Cloud installation to MQTT\n
+    In intervals defined by the teleperiod option, the current state of
+    all Homematic devices is published to MQTT with the messages\n
+        tele/<prefix><device name>/STATE
+        tele/<prefix><device id>/STATE
+    """
 
     if not config_file_path.exists():
         typer.echo("No configuration found", err=True)
