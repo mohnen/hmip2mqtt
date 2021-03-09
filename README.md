@@ -15,8 +15,10 @@ You need to have a working Python 3.8+ installation. The easiest way to install 
  This will install (and update) all required packages.
 
 Run the program from the command line with:
+
 ``` hmip2mqtt <broker address>```
-where `<broker address>` is the IP address or the domain name of your MQTT broker.
+
+where `<broker address>` is the IP address or the domain name of your MQTT broker. The program will run until terminated.
 
 On first run, it will ask you for the required data to access your Homematic installation. You will need to have physical access to your access point.
 On subsequent runs, this information will be used.
